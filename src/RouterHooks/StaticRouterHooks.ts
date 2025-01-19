@@ -297,7 +297,6 @@ export class CustomStaticRouterHooks
         }
 
         return {
-            tier: detailsJSON.data[0].Info.Tier,
             name: detailsJSON.data[0].Info.Nickname, 
             level: detailsJSON.data[0].Info.Level, 
             gameVersion: detailsJSON.data[0].Info.GameVersion, 
@@ -338,7 +337,6 @@ export class CustomStaticRouterHooks
         let realMessage4;
 
         let temporaryMessage1: string[] = [
-            `Tier: ${botDetails.tier}`,
             `Role: ${botDetails.role}`,
             `Nickname: ${botDetails.name}`,
             `Level: ${botDetails.level}`,
