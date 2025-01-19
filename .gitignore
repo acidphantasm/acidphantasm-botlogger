@@ -1,0 +1,8 @@
+/dist
+/node_modules
+/types
+.buildignore
+.eslintignore
+.eslintrc.json
+build.mjs
+package-lock.json
