@@ -1,15 +1,13 @@
 import { DependencyContainer } from "tsyringe";
 
 // SPT
-import { IPostDBLoadMod } from "@spt/models/external/IPostDBLoadMod";
 import { IPreSptLoadMod } from "@spt/models/external/IPreSptLoadMod";
-import { IPostSptLoadMod } from "@spt/models/external/IPostSptLoadMod";
 
 // Custom
 import { Logging } from "./Enums/Logging";
 import { InstanceManager } from "./InstanceManager";
 
-class BotLogger implements IPreSptLoadMod, IPostDBLoadMod, IPostSptLoadMod
+class BotLogger implements IPreSptLoadMod
 {
     private instance: InstanceManager = new InstanceManager();
 
@@ -32,31 +30,6 @@ class BotLogger implements IPreSptLoadMod, IPostDBLoadMod, IPostSptLoadMod
 
         const timeTaken = performance.now() - start;
         this.instance.botLogger.log(Logging.DEBUG, `${timeTaken.toFixed(2)}ms for BotLogger.preSptLoad`);
-    }
-
-    public postDBLoad(container: DependencyContainer): void
-    {
-        const start = performance.now()
-        this.instance.postDBLoad(container);
-        
-        const timeTaken = performance.now() - start;
-        this.instance.botLogger.log(Logging.DEBUG, `${timeTaken.toFixed(2)}ms for BotLogger.postDBLoad`);
-    }
-
-    public postSptLoad(container: DependencyContainer): void 
-    {
-        const start = performance.now()
-        this.instance.postSptLoad(container);
-
-        if (this.instance.modInformation.versionNumber.includes("alpha"))
-        {
-            this.instance.botLogger.log(Logging.WARN, "!!! THIS IS AN EARLY RELEASE BUILD !!!")
-            this.instance.botLogger.log(Logging.WARN, "Do not report problems with this anywhere except #acidphantasm-mods in the SPT Discord.")
-            this.instance.botLogger.log(Logging.WARN, "Thank you for testing!")
-        }
-
-        const timeTaken = performance.now() - start;
-        this.instance.botLogger.log(Logging.DEBUG, `${timeTaken.toFixed(2)}ms for BotLogger.postSptLoad`);
     }
 }
 

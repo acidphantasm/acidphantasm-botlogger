@@ -8,26 +8,6 @@ import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { StaticRouterModService } from "@spt/services/mod/staticRouter/StaticRouterModService";
 import { DynamicRouterModService } from "@spt/services/mod/dynamicRouter/DynamicRouterModService";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
-import { DatabaseService } from "@spt/services/DatabaseService";
-import { IDatabaseTables } from "@spt/models/spt/server/IDatabaseTables";
-import { ConfigServer } from "@spt/servers/ConfigServer";
-import { WeatherGenerator } from "@spt/generators/WeatherGenerator";
-import { BotLevelGenerator } from "@spt/generators/BotLevelGenerator";
-import { RandomUtil } from "@spt/utils/RandomUtil";
-import { ProfileHelper } from "@spt/helpers/ProfileHelper";
-import { BotGenerator } from "@spt/generators/BotGenerator";
-import { BotWeaponGenerator } from "@spt/generators/BotWeaponGenerator";
-import { WeightedRandomHelper } from "@spt/helpers/WeightedRandomHelper";
-import { LocalisationService } from "@spt/services/LocalisationService";
-import { HashUtil } from "@spt/utils/HashUtil";
-import { InventoryMagGen } from "@spt/generators/weapongen/InventoryMagGen";
-import { ICloner } from "@spt/utils/cloners/ICloner";
-import { BotEquipmentModGenerator } from "@spt/generators/BotEquipmentModGenerator";
-import { BotGeneratorHelper } from "@spt/helpers/BotGeneratorHelper";
-import { BotWeaponGeneratorHelper } from "@spt/helpers/BotWeaponGeneratorHelper";
-import { BotWeaponModLimitService } from "@spt/services/BotWeaponModLimitService";
-import { RepairService } from "@spt/services/RepairService";
-import { SeasonalEventService } from "@spt/services/SeasonalEventService";
 import { VFS } from "@spt/utils/VFS";
 
 // Custom
@@ -53,10 +33,6 @@ export class InstanceManager
     public botLogger: BotLogger;
     public customStaticRouterHooks: CustomStaticRouterHooks;
     public customDynamicRouterHooks: CustomDynamicRouterHooks;
-    //#endregion
-
-    //#region accessible in or after postDBLoad
-    public tables: IDatabaseTables;
     //#endregion
 
     // Call at the start of the mods postDBLoad method
@@ -86,18 +62,6 @@ export class InstanceManager
         this.customStaticRouterHooks = container.resolve<CustomStaticRouterHooks>("CustomStaticRouterHooks");
 
         this.getPath();
-    }
-
-    public postDBLoad(container: DependencyContainer): void
-    {
-        // SPT Classes
-        this.tables = container.resolve<DatabaseService>("DatabaseService").getTables();
-    }
-
-    public postSptLoad(container: DependencyContainer): void
-    {
-        // SPT Classes
-        this.tables = container.resolve<DatabaseService>("DatabaseService").getTables();
     }
 
     public getPath(): boolean
