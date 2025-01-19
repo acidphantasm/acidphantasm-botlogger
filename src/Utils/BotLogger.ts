@@ -80,11 +80,11 @@ export class BotLogger
         {
             if (logcation == Logging.WARN) 
             {
-                this.logger.warning(`[APBS] ${consoleMessage}`);
+                this.logger.warning(`[BotLogger] ${consoleMessage}`);
             }
             if (logcation == Logging.ERR) 
             {
-                this.logger.error(`[APBS] ${consoleMessage}`);
+                this.logger.error(`[BotLogger] ${consoleMessage}`);
             }
         }
     }    
